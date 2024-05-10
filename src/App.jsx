@@ -1,33 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import './components/atoms/buttons/Buttons.css';
+import './components/atoms/formsParts/FormParts.css';
+import './components/molecules/molecules.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MessageManager from './components/molecules/messageManager/MessageManager';
+import { useState } from 'react';
+import Home from './components/templates/Home';
+import LogInForm from './components/molecules/forms/LoginForm';
+import AppContext from './AppContext';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  // Se comparte el token por contexto con toda la app, cuando se loguea el usuario se setea el mismo.
+  // Se puede a partir de esto, chequear el token ante consultas a base de dato.
+  const [token, setToken] = useState(null);
+  // TODO: Se puede sino hacer un useEffect, que cada vez que reenderise el App consulte al back si el token
+  // TODO: es valido y solo manejarlo aca, sin contexto.
+  
+  const routes = {
+      home: '/',
+      login: '/login',
+      register: '/register'
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Router>
+      <AppContext.Provider value={{ token, setToken, routes,  }}>
+      <MessageManager>
+        <Routes>
+          <Route path={routes.home} element={<Home />} />
+          <Route path={routes.login} element={<LogInForm />} />
+      </Routes>
+      </MessageManager>
+      </AppContext.Provider>
+      </Router>
     </>
   )
 }
