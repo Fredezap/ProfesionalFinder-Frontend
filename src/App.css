@@ -40,3 +40,20 @@
 .read-the-docs {
   color: #888;
 }
+
+.message {
+  font-weight: 500;
+  margin: 20px;
+}
+
+.loginMessage {
+  color: rgb(28, 203, 203);
+}
+
+.errorMessage {
+  color: red;
+}
+
+.successMessage {
+  color: green;
+}

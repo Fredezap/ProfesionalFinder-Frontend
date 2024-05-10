@@ -1,0 +1,71 @@
+.button {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    padding: 9px 20px;
+    margin: 5px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    transition: 0.5s;
+}
+
+.buttonRed {
+    background-color: rgba(231, 13, 13, 0.8);
+}
+
+.buttonRed:hover {
+    background-color: rgb(212, 22, 22);
+}
+
+.buttonLightblue {
+    background-color: rgba(35, 206, 235);
+}
+
+.buttonLightblue:hover {
+    background-color: rgba(35, 206, 235, 0.8);
+}
+
+.buttonWhite {
+    background-color: aliceblue;
+}
+
+.buttonWhite:hover {
+    background-color: rgb(211, 229, 229);
+}
+
+.buttonBlack {
+    background-color: rgb(15, 1, 1);
+    color: white;
+    width: 25%;
+    margin-top: 30px;
+}
+
+.buttonBlack:hover {
+    background-color: rgb(42, 39, 39);
+}
+
+.largePrimaryButton {
+    background-color: rgb(25, 118, 210);
+    color: white;
+    width: 25%;
+    margin-top: 30px;
+}
+
+.largePrimaryButton:hover {
+    background-color: rgb(17, 82, 147);
+
+}
+
+.miniButtonCyan {
+    background-color: #0f86b6;
+    color: rgb(0, 0, 0);
+
+    padding: 3px 30px;
+    font-size: medium;
+}
+
+.miniButtonCyan:hover {
+    color: beige;
+}
