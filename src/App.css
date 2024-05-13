@@ -40,3 +40,25 @@
 .read-the-docs {
   color: #888;
 }
+
+.manager-message {
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.form-message {
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.login-message {
+  color: rgb(28, 203, 203);
+}
+
+.error-message {
+  color: red;
+}
+
+.success-message {
+  color: green;
+}
