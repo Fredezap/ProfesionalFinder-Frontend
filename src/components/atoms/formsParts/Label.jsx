@@ -1,9 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 const Label = (props) => {
     return (
-        <div className='labelBox'>
+        <div className='label-box'>
             <label className='label'>{props.children}</label>
         </div>
     );

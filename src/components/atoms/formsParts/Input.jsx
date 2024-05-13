@@ -1,5 +1,3 @@
-import React from 'react';
-import './FormParts.css'
 
 const Input = () => {
     return (

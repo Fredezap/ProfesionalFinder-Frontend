@@ -1,11 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import './Buttons.css'
 
 const LightblueButton = (props) => {
     return (
         <div>
-            <button className='button buttonLightblue'>{props.children}</button>
+            <button className='button button-light-blue '>{props.children}</button>
         </div>
     );
 }

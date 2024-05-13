@@ -41,19 +41,24 @@
   color: #888;
 }
 
-.message {
+.manager-message {
   font-weight: 500;
-  margin: 20px;
+  margin-top: 20px;
 }
 
-.loginMessage {
+.form-message {
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.login-message {
   color: rgb(28, 203, 203);
 }
 
-.errorMessage {
+.error-message {
   color: red;
 }
 
-.successMessage {
+.success-message {
   color: green;
 }

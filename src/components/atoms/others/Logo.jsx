@@ -1,15 +1,25 @@
-import React from 'react';
-import VpnKeyTwoToneIcon from '@mui/icons-material/VpnKeyTwoTone';
-import './others.css'
-import { MdOutlineSecurity } from "react-icons/md";
+import { GiPlagueDoctorProfile } from "react-icons/gi";
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const Logo = () => {
+const Logo = (props) => {
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(props.to);
+    };
+
     return (
-        <div className='logoBox'>
-            <MdOutlineSecurity className='logo' />
-            <p>Logging app</p>
+        <div className='logo-box' onClick={handleClick}>
+            <GiPlagueDoctorProfile />
         </div>
     );
+}
+
+Logo.propTypes = {
+    children: PropTypes.node.isRequired,
+    to: PropTypes.string.isRequired
 }
 
 export default Logo;

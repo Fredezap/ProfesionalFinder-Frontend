@@ -50,13 +50,13 @@ const MessageManager = ({ children }) => {
                     el usuario no este verificado y segun el texto, que abra su proveedor 
                     de email. Ej de msg.text para abrir gmail:
                     https://mail.google.com/mail/u/0/#inbox */
-            <div className='openEmailBox' onClick={() => window.open(`${msg.text}`, '_blank')}>
-                <MdEmail className='emailIcon' />
+            <div onClick={() => window.open(`${msg.text}`, '_blank')}>
+                <MdEmail />
                 <span>VERIFY IT</span>
             </div>
             ) : (
-            <p className={msg.type === 'success' ? 'message successMessage' : 
-            (msg.type === 'error' ? 'message errorMessage' : '')}>
+            <p className={msg.type === 'success' ? 'manager-message success-message' : 
+            (msg.type === 'error' ? 'manager-message error-message' : '')}>
                 {msg.text}
             </p>
             )}

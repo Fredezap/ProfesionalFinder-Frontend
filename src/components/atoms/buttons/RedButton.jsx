@@ -1,12 +1,16 @@
-import React from 'react';
-import './Buttons.css'
+import PropTypes from 'prop-types';
 
-const RedButton = () => {
+const RedButton = (props) => {
     return (
-        <div>
-            <button className='button buttonRed'>Boton</button>
-        </div>
+        <button className='button button-red' onClick={props.onClick}>
+            {props.children}
+        </button>
     );
 }
+
+RedButton.propTypes = {
+    children: PropTypes.node.isRequired,
+    onClick: PropTypes.func
+};
 
 export default RedButton;

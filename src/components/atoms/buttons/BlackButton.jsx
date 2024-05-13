@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const BlackButton = (props) => {
     return (
-        <button className='button buttonBlack' onClick={props.onClick}>
+        <button className='button button-black' onClick={props.onClick}>
             {props.children}
         </button>
     );

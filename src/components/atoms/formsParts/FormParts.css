@@ -6,7 +6,8 @@
     box-shadow: 1px 2px 10px gray;
     outline: none;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    box-sizing: border-box
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .input:hover {
@@ -19,10 +20,10 @@
     font-size: larger;
 }
 
-.labelBox {
-    margin: 40px 0 15px 0;
+.label-box {
+    margin: 30px 0 15px 0;
 }
 
 .input-login {
-    width: 25.5%;
+    width: 29%;
 }

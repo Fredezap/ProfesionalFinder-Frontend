@@ -11,7 +11,7 @@ const WhiteButton = (props) => {
 
     return (
         <div>
-            <button className='button buttonWhite' type={props.children} onClick={handleClick}>{props.children}</button>
+            <button className='button button-white' type={props.children} onClick={handleClick}>{props.children}</button>
         </div>  
     );
 }

@@ -1,35 +1,21 @@
-/* eslint-disable react/jsx-no-comment-textnodes */
-import { React, useState } from 'react';
-import './Molecules.css';
-import '../atoms/buttons/Buttons.css';
-import '../body.css';
-import '../atoms/formsParts/FormParts.css';
+import { useState, useContext } from 'react';
 import LargePrimaryButton from '../../atoms/buttons/LargePrimaryButton';
 import Label from '../../atoms/formsParts/Label';
 // import { appContext } from '../../App';
 import { ErrorMessage, Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import AppContext from '../../../AppContext';
+import MessageManagerContext from '../messageManager/MessageManagerContext';
 
 const RegisterForm = () => {
 
+    const navigate = useNavigate();
+    const { routes } = useContext(AppContext);
+    const { messageHandler} = useContext(MessageManagerContext);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-    const setMessage = async (newMessage) => {
-        setErrorMessage(newMessage)
-        setTimeout(() => {
-        setErrorMessage('');
-        }, 10000);
-      };
-
-    const getErrorMessage = () => {
-        const searchParams = new URLSearchParams(useLocation.search);
-        return searchParams.get('message') || '';
-      };
-    
-    const navigate = useNavigate();
 
     const InitialValues = {
         username: '',
@@ -60,10 +46,11 @@ const RegisterForm = () => {
         }
     )
 
+
     const register = async (data) => {
    
     try {
-        const response = await fetch('http://localhost:3001/api/users', {
+        const response = await fetch('http://localhost:3001/api/users', { // TODO: Poner endpoint existente
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -72,34 +59,33 @@ const RegisterForm = () => {
         });
         
         const message = await response.json();
-        console.log(message)
-        console.log(response)
-        console.log(response.ok && message.success)
+
         if (response.ok && message.success) {
-        navigate(`/email-verification?email=${data.email}`);
+            const successText = 'Registro exitoso'; // TODO: Ver que mensaje mostrar
+            const successMessage = { type: 'success', text: successText };
+            messageHandler(successMessage);
+            navigate(routes.login);
         } else {
-            console.log(message.error)
-            setMessage(message.error)
-            navigate('/register')
+            const errorText = 'Error al registratse'; // TODO: Ver que mensaje mostrar
+            const errorMessage = { type: 'error', text: errorText };
+            messageHandler(errorMessage);
         }
-        } catch (error) {
-            setMessage(`${error}`)
-            navigate('/register')
-        };
+    } catch (error) {
+        const errorText = 'Error en catch al realizar consulta al backend'; // TODO: Ver que mensaje mostrar
+        const errorMessage = { type: 'error', text: errorText };
+        messageHandler(errorMessage);
+    }
     };
 
     return (
-    <div className='logInRegisterForm'>
-        {errorMessage !== '' && <span className='errorMessage'>{errorMessage}</span>}
-        {getErrorMessage() && <span className='errorMessage'>{getErrorMessage()}</span>}
+    <div className="flex flex-col items-center justify-center w-screen align-center h-screen">
         <Formik
             initialValues = { InitialValues }
 
             validationSchema = { registerSchema }
 
             onSubmit = {async (values) => {
-                await new Promise((r) => setTimeout(r, 2000));
-                register(values)
+                await register(values)
             }}
         >
 
@@ -109,44 +95,47 @@ const RegisterForm = () => {
             touched,
             isSubmitting
         }) => (
-            <Form>
+            <Form className='flex flex-col w-screen items-center justify-center'>
                 <Label>User name</Label>
-                <Field className='input' id="username" name="username" placeholder="Username" type="text"></Field>     
-                {errors.username && touched.username && (<ErrorMessage className='errorMessageStyle' component="div" name="username"></ErrorMessage>)}  
+                <Field className='input w-3/12' id="username" name="username" placeholder="Username" type="text"></Field>     
+                {errors.username && touched.username && (<ErrorMessage className='form-message error-message' component="div" name="username"></ErrorMessage>)}  
 
                 <Label>Mail</Label>
-                <Field className='input' id="email" name="email" placeholder="Mail" type="email"></Field>     
-                {errors.email && touched.email && (<ErrorMessage className='errorMessageStyle' component="div" name="email"></ErrorMessage>)}  
+                <Field className='input w-3/12' id="email" name="email" placeholder="Mail" type="email"></Field>     
+                {errors.email && touched.email && (<ErrorMessage className='form-message error-message' component="div" name="email"></ErrorMessage>)}  
 
                 <Label>Password</Label>
-                <div className='showPasswordBox'>
-                    <Field className='input' id="password" name="password" placeholder="Password" type={showPassword ? "text" : "password"}></Field>
-                {showPassword ? (
-                    <FaRegEye className='showPassword' onClick={() => setShowPassword(!showPassword)} />
-                ) : (
-                    <FaRegEyeSlash className='showPassword' onClick={() => setShowPassword(!showPassword)} />
-                )}
-                </div>
-                {errors.password && touched.password && (<ErrorMessage className='errorMessageStyle' component="div" name="password"></ErrorMessage>)}
+                    <div className='flex items-center input-login justify-center ml-6'>
+                        <Field className='input ml-6' id="password" name="password" placeholder="Password" type={showPassword ? "text" : "password"}></Field>
+                    {showPassword ? (
+                        <FaRegEye className='showPassword ml-6' onClick={() => setShowPassword(!showPassword)} />
+                    ) : (
+                        <FaRegEyeSlash className='showPassword ml-6' onClick={() => setShowPassword(!showPassword)} />
+                    )}
+                    </div>
+                {errors.password && touched.password && (<ErrorMessage className='form-message error-message' component="div" name="password"></ErrorMessage>)}
 
                 <Label>Confirm password</Label>
-                <div className='showPasswordBox'>
-                    <Field className='input' id="confirmPassword" name="confirmPassword" placeholder="Confirm password" type={showConfirmPassword ? "text" : "password"}></Field>
-                {showConfirmPassword ? (
-                    <FaRegEye className='showPassword' onClick={() => setShowConfirmPassword(!showConfirmPassword)} />
-                ) : (
-                    <FaRegEyeSlash className='showPassword' onClick={() => setShowConfirmPassword(!showConfirmPassword)} />
-                )}
+                    <div className='flex items-center input-login justify-center ml-6'>
+                        <Field className='input ml-6' id="confirmPassword" name="confirmPassword" placeholder="Confirm password" type={showConfirmPassword ? "text" : "password"}></Field>
+                    {showConfirmPassword ? (
+                        <FaRegEye className='showPassword ml-6' onClick={() => setShowConfirmPassword(!showConfirmPassword)} />
+                    ) : (
+                        <FaRegEyeSlash className='showPassword ml-6' onClick={() => setShowConfirmPassword(!showConfirmPassword)} />
+                    )}
+                    </div>
+                {errors.confirmPassword && touched.confirmPassword && (<ErrorMessage className='form-message error-message' component="div" name="confirmPassword"></ErrorMessage>)}
+                
+                <div className='w-3/12 mr-2 mt-10'>
+                    <LargePrimaryButton type="submit" disabled={!Formik.isValid || isSubmitting}>
+                    Create user
+                    </LargePrimaryButton>
                 </div>
-                {errors.confirmPassword && touched.confirmPassword && (<ErrorMessage className='errorMessageStyle' component="div" name="confirmPassword"></ErrorMessage>)}
 
-                <LargePrimaryButton type="submit" disabled={!Formik.isValid || isSubmitting}>
-                Create user
-                </LargePrimaryButton>
                 <div style={{marginTop: '10px'}}> 
                 {isSubmitting ? 
-                    <div className='loginMessageStyle'>
-                        Creating user, please wait
+                    <div className='form-message login-message'>
+                        Registrando usuario, por favor espere
                     </div> :
                     null}
                 </div>

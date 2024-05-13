@@ -1,5 +1,6 @@
 import './App.css';
 import './components/atoms/buttons/Buttons.css';
+import './components/atoms/others/others.css'
 import './components/atoms/formsParts/FormParts.css';
 import './components/molecules/molecules.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -8,6 +9,8 @@ import { useState } from 'react';
 import Home from './components/templates/Home';
 import LogInForm from './components/molecules/forms/LoginForm';
 import AppContext from './AppContext';
+import HeaderNavbar from './components/molecules/HeaderNavbar';
+import RegisterForm from './components/molecules/forms/RegisterForm';
 
 function App() {
 
@@ -28,9 +31,11 @@ function App() {
       <Router>
       <AppContext.Provider value={{ token, setToken, routes,  }}>
       <MessageManager>
+      <HeaderNavbar />
         <Routes>
           <Route path={routes.home} element={<Home />} />
           <Route path={routes.login} element={<LogInForm />} />
+          <Route path={routes.register} element={<RegisterForm />} />
       </Routes>
       </MessageManager>
       </AppContext.Provider>

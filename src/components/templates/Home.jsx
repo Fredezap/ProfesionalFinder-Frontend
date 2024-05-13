@@ -1,12 +1,9 @@
 import { useContext } from 'react';
 import MessageManagerContext from '../molecules/messageManager/MessageManagerContext';
-import AppContext from '../../AppContext';
-import WhiteButton from '../atoms/buttons/WhiteButton';
 
 const Home = () => {
 
     const { messageHandler } = useContext(MessageManagerContext);
-    const { routes } = useContext(AppContext)
 
     const consultaBackEndPrueba = async () => {
         try {
@@ -33,7 +30,6 @@ const Home = () => {
 
     return (
         <div>
-        <WhiteButton to={routes.login}>Login</WhiteButton>
             <h1>Bienvenido a profesional finder</h1>
             <button className='m-8' onClick={consultaBackEndPrueba}>Consulta backend prueba</button>
         </div>

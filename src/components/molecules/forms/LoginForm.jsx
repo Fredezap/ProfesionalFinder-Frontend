@@ -77,36 +77,40 @@ const LogInForm = () => {
                 touched,
                 isSubmitting
             }) => (
-    <Form className="w-full">
-  <Label>Email</Label>
-  <Field className='input w-3/12' id="email" name="email" placeholder="Email" autoComplete="username" type="email" />     
-  {errors.email && touched.email && (<ErrorMessage className='message errorMessage' component="div" name="email" />)}  
+                <Form className='flex flex-col w-screen items-center justify-center'>
+                    <Label>Email</Label>
+                    <Field className='input w-3/12' id="email" name="email" placeholder="Email" autoComplete="username" type="email" />     
+                    {errors.email && touched.email && (<ErrorMessage className='form-message error-message' component="div" name="email" />)}  
 
-  <Label>Password</Label>
-  <div className='flex items-center justify-center ml-6'>
-    <Field className='input input-login ml-6' id="password" name="password" placeholder="Password" autoComplete="current-password" type={showPassword ? "text" : "password"} />
-    {showPassword ? (
-      <FaRegEye className='showPassword ml-6' onClick={() => setShowPassword(!showPassword)} />
-    ) : (
-      <FaRegEyeSlash className='showPassword ml-6' onClick={() => setShowPassword(!showPassword)} />
-    )}
-  </div>
-  {errors.password && touched.password && (<ErrorMessage className='message errorMessage' component="div" name="password" />)}
+                    <Label>Password</Label>
+                    <div className='flex items-center input-login justify-center ml-6 mb-10'>
+                        <Field className='input ml-6'  id="password" name="password" placeholder="Password" autoComplete="current-password" type={showPassword ? "text" : "password"} />
+                        {showPassword ? (
+                            <FaRegEye className='showPassword ml-6' onClick={() => setShowPassword(!showPassword)} />
+                        ) : (
+                            <FaRegEyeSlash className='showPassword ml-6' onClick={() => setShowPassword(!showPassword)} />
+                        )}
+                        </div>
+                    {errors.password && touched.password && (<ErrorMessage className='form-message error-message' component="div" name="password" />)}
 
-  <LargePrimaryButton type='submit'>Login</LargePrimaryButton>
-  <div style={{marginTop: '10px'}}> 
-    {isSubmitting ? 
-      <div className='message loginMessage'>
-        Logueando al usuario, por favor espere
-      </div> :
-      null}
-  </div>
-</Form>
+                    <div className='w-3/12 mr-3'>
+                    <LargePrimaryButton type='submit'>Login</LargePrimaryButton>
+                    </div>
+                        <div style={{marginTop: '10px'}}> 
+                    {isSubmitting ? 
+                        <div className='form-message login-message'>
+                        Logueando al usuario, por favor espere
+                        </div> :
+                        null}
+                    </div>
+                </Form>
 
             )}
             </Formik>
         {/* TODO: agregar un onClick para hacer un navigate a otra ruta para recuperar contraseña */}
-        <BlackButton>Olvide mi contraseña</BlackButton> 
+        <div className='w-3/12 mr-3 mt-16'>
+                 <BlackButton>Olvide mi contraseña</BlackButton> 
+                    </div>
         </div>
     );
 }
