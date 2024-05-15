@@ -1,39 +1,21 @@
-import { useContext } from 'react';
-import MessageManagerContext from '../molecules/messageManager/MessageManagerContext';
+import useBackendConnectionStore from "../../store/backendConnectionStore";
 
 const Home = () => {
+  const { fetchText, text } = useBackendConnectionStore();
 
-    const { messageHandler } = useContext(MessageManagerContext);
+  const handleClick = async () => {
+    fetchText();
+  };
 
-    const consultaBackEndPrueba = async () => {
-        try {
-            // const response = await fetch('ENDPOINT') // TODO: Agregar el endpoint de prueba
-            const response = {ok:true} // De prueba
-            if (!response.ok) {
-                const errorText = 'Error al realizar consulta al backend'; // TODO: Ver que mensaje mostrar
-                const errorMessage = { type: 'error', text: errorText };
-                messageHandler(errorMessage);
-            } else {
-                const data = await response.json();
-                // TODO: obtener los datos necesarios de data y mostrarlos con un success message
-                // TODO: si es necesario
-                const successText = 'Success al realizar consulta al backend'; // TODO: Ver que mensaje mostrar
-                const successMessage = { type: 'success', text: successText };
-                messageHandler(successMessage);
-            }
-        } catch (err) {
-            const errorText = 'Error en catch al realizar consulta al backend'; // TODO: Ver que mensaje mostrar
-            const errorMessage = { type: 'error', text: errorText };
-            messageHandler(errorMessage);
-        }
-    }
-
-    return (
-        <div>
-            <h1>Bienvenido a profesional finder</h1>
-            <button className='m-8' onClick={consultaBackEndPrueba}>Consulta backend prueba</button>
-        </div>
-    );
-}
+  return (
+    <div>
+      {text && <p className="text-green-800">{text}</p>}
+      <h1>Bienvenido a profesional finder</h1>
+      <button className="m-8" onClick={handleClick}>
+        Consulta backend prueba
+      </button>
+    </div>
+  );
+};
 
 export default Home;
