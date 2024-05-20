@@ -18,7 +18,6 @@ const Logo = (props) => {
 }
 
 Logo.propTypes = {
-    children: PropTypes.node.isRequired,
     to: PropTypes.string.isRequired
 }
 

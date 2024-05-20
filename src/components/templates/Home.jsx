@@ -1,18 +1,29 @@
-import useBackendConnectionStore from "../../store/backendConnectionStore";
+import { createMessageSlice } from "../../store/slices/createMessageSlice";
+import createUser from "../../requests/userRequests/posts/createUser.js";
 
 const Home = () => {
-  const { fetchText, text } = useBackendConnectionStore();
 
-  const handleClick = async () => {
-    fetchText();
+  const handleClickBackend = async () => {
+    const response = await createUser('http://localhost:3000/api/salute');
+    addMessage(response.message)
+  };
+
+  const { addMessage } = createMessageSlice();
+
+  const message = {type:"success-message", content: "PROBANDO ZUSTAND"};
+
+  const handleClickZustand = () => {
+    addMessage(message)
   };
 
   return (
     <div>
-      {text && <p className="text-green-800">{text}</p>}
+    <div>
+      <button onClick={handleClickZustand}>prueba zustand</button>
+    </div>
       <h1>Bienvenido a profesional finder</h1>
-      <button className="m-8" onClick={handleClick}>
-        Consulta backend prueba
+      <button className="m-8" onClick={handleClickBackend}>
+        Consulta backend nueva - register
       </button>
     </div>
   );

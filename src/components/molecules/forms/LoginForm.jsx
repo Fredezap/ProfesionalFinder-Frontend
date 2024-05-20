@@ -1,20 +1,18 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Label from '../../atoms/formsParts/Label';
 import LargePrimaryButton from '../../atoms/buttons/LargePrimaryButton';
 import BlackButton from '../../atoms/buttons/BlackButton';
 import { ErrorMessage, Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-import AppContext from '../../../AppContext';
-import MessageManagerContext from '../messageManager/MessageManagerContext';
+// import { createRoutesSlice } from '../../../store/slices/createRoutesSlice';
 
 const LogInForm = () => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const { routes } = useContext(AppContext);
-    const { messageHandler} = useContext(MessageManagerContext);
+    // const { routes } = createRoutesSlice();
 
     const InitialValues = {
         email: '',
@@ -29,35 +27,37 @@ const LogInForm = () => {
             .required("Password is required")
     });
 
-    const logIn = async (credentials) => {
-        try {
-            const response = await fetch('http://localhost:3001/api/login', { // TODO: Poner endpoint existente
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(credentials),
-            });
-        
-            const message = await response.json();
+    // TODO: call the request and send parameters. Then whit the response, redirect (routes).
 
-            if (response.ok && message.success) {
-                localStorage.setItem('token', message.token);
-                const successText = 'Login exitoso'; // TODO: Ver que mensaje mostrar
-                const successMessage = { type: 'success', text: successText };
-                messageHandler(successMessage);
-                navigate(routes.home);
-            } else {
-                const errorText = 'Error al hacer login'; // TODO: Ver que mensaje mostrar
-                const errorMessage = { type: 'error', text: errorText };
-                messageHandler(errorMessage);
-            }
-        } catch (error) {
-            const errorText = 'Error en catch al realizar consulta al backend'; // TODO: Ver que mensaje mostrar
-            const errorMessage = { type: 'error', text: errorText };
-            messageHandler(errorMessage);
-        }
-    };
+    // const logIn = async (credentials) => {
+    //     try {
+    //         const response = await fetch('http://localhost:3001/api/login', { // TODO: Poner endpoint existente
+    //         method: 'POST',
+    //         headers: {
+    //         'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(credentials),
+    //         });
+        
+    //         const message = await response.json();
+
+    //         if (response.ok && message.success) {
+    //             localStorage.setItem('token', message.token);
+    //             const successText = 'Login exitoso'; // TODO: Ver que mensaje mostrar
+    //             const successMessage = { type: 'success', text: successText };
+    //             messageHandler(successMessage);
+    //             navigate(routes.home);
+    //         } else {
+    //             const errorText = 'Error al hacer login'; // TODO: Ver que mensaje mostrar
+    //             const errorMessage = { type: 'error', text: errorText };
+    //             messageHandler(errorMessage);
+    //         }
+    //     } catch (error) {
+    //         const errorText = 'Error en catch al realizar consulta al backend'; // TODO: Ver que mensaje mostrar
+    //         const errorMessage = { type: 'error', text: errorText };
+    //         messageHandler(errorMessage);
+    //     }
+    // };
 
     return  (
         <div className="flex flex-col items-center justify-center w-screen align-center h-screen">
@@ -66,13 +66,12 @@ const LogInForm = () => {
 
                 validationSchema = { registerSchema }
 
-                onSubmit={async (values) => {
-                    await logIn(values);
-                }}
+                // onSubmit={async (values) => {
+                //     await logIn(values);
+                // }}
             >
 
             {({
-                values,
                 errors,
                 touched,
                 isSubmitting
