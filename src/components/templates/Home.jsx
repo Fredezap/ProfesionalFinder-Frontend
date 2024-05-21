@@ -6,6 +6,7 @@ const Home = () => {
   const handleClickBackend = async () => {
     const response = await createUser('http://localhost:3000/api/salute');
     addMessage(response.message)
+    // I added this request to register form which is the correct component to make the request.
   };
 
   const { addMessage } = createMessageSlice();

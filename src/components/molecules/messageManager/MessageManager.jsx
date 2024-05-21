@@ -14,7 +14,7 @@ const MessageManager = () => {
     const { messages } = createMessageSlice();
 
     return (
-        <div>
+        <div className='flex flex-col fixed top-32 w-full items-center justify-center'>
             {messages.length > 0 ? messages.map((message, index) => 
                 (<p className={`manager-message ${message.type}`} key={index}> {message.content} </p>)
             ) : (

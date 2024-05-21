@@ -44,7 +44,7 @@
 .manager-message {
   font-weight: 500;
   font-size: larger;
-  margin-top: 20px;
+  text-align: center;
 }
 
 .form-message {

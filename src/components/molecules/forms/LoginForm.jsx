@@ -6,7 +6,7 @@ import { ErrorMessage, Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 // import { useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-// import { createRoutesSlice } from '../../../store/slices/createRoutesSlice';
+// import { createMessageSlice } from '../../../store/slices/createMessageSlice';
 
 const LogInForm = () => {
 
@@ -14,6 +14,7 @@ const LogInForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     // const { routes } = createRoutesSlice();
 
+    // TODO: See if we handle this data here or we set it in suztand user
     const InitialValues = {
         email: '',
         password: ''

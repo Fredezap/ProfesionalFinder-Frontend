@@ -4,16 +4,29 @@ import Label from '../../atoms/formsParts/Label';
 import { ErrorMessage, Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-// import { useNavigate } from "react-router-dom";
-// import { createRoutesSlice } from '../../../store/slices/createRoutesSlice';
+import { createMessageSlice } from '../../../store/slices/createMessageSlice';
+import { createRoutesSlice } from '../../../store/slices/createRoutesSlice';
+import { useNavigate } from "react-router-dom";
+import createUser from '../../../requests/userRequests/posts/createUser';
 
 const RegisterForm = () => {
-
-    // const navigate = useNavigate();
-    // const { routes } = createRoutesSlice();
+    
+    const { addMessage } = createMessageSlice();
+    const { routes } = createRoutesSlice();
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+    const register = async (credentials) => {
+        const response = await createUser('http://localhost:3000/api/auth/register', credentials);
+        console.log(response)
+        addMessage(response.message)
+        response.message.type = "success-message"
+        if (response.message.type === "success-message")
+        navigate(routes.login);
+      };
+    
+    // TODO: See if we handle this data here or we set it in suztand user
     const InitialValues = {
         username: '',
         email: '',
@@ -43,38 +56,6 @@ const RegisterForm = () => {
         }
     )
 
-    // TODO: call the request and send parameters. Then whit the response, redirect (routes).
-
-    // const register = async (data) => {
-   
-    // try {
-    //     const response = await fetch('http://localhost:3001/api/users', { // TODO: Poner endpoint existente
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify(data),
-    //     });
-        
-    //     const message = await response.json();
-
-    //     if (response.ok && message.success) {
-    //         const successText = 'Registro exitoso'; // TODO: Ver que mensaje mostrar
-    //         const successMessage = { type: 'success', text: successText };
-    //         messageHandler(successMessage);
-    //         navigate(routes.login);
-    //     } else {
-    //         const errorText = 'Error al registratse'; // TODO: Ver que mensaje mostrar
-    //         const errorMessage = { type: 'error', text: errorText };
-    //         messageHandler(errorMessage);
-    //     }
-    // } catch (error) {
-    //     const errorText = 'Error en catch al realizar consulta al backend'; // TODO: Ver que mensaje mostrar
-    //     const errorMessage = { type: 'error', text: errorText };
-    //     messageHandler(errorMessage);
-    // }
-    // };
-
     return (
     <div className="flex flex-col items-center justify-center w-screen align-center h-screen">
         <Formik
@@ -82,9 +63,9 @@ const RegisterForm = () => {
 
             validationSchema = { registerSchema }
 
-            // onSubmit = {async (values) => {
-            //     await register(values)
-            // }}
+            onSubmit = {async (values) => {
+                await register(values)
+            }}
         >
 
         {({
