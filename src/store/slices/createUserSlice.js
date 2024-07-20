@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import user from '../models/user.json';
+import user from '../models/user.js';
 
 export const createUserSlice = create((set) => ({
   user: user,
