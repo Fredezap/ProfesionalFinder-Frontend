@@ -1,27 +1,44 @@
+import { IoMdCloseCircle } from 'react-icons/io';
 import { createMessageSlice } from '../../../store/slices/createMessageSlice';
+import { FaCheckCircle } from 'react-icons/fa';
 
-// ATENCION: Si los mensajes se estan reenderizando 2 veces en desarrollo es
-//           a causa de el <React.StrictMode> que es utilizado para prevenir
-//           e identificar errores y efectos secundarios no deseados.
-//           En produccion y con la build funcionando esto no sucede.
+// ATTENTION: If the messages are rendering twice in development, it is
+//            because of <React.StrictMode> which is used to prevent
+//            and identify errors and unwanted side effects.
+//            In production and with the build running, this does not happen.
+
+/**
+ * MessageManager Component
+ *
+ * The model for a message is:
+ * @typedef {Object} Message
+ * @property {'success' | 'error' | 'submitting' } type - The type of the message.
+ * @property {any} content - The content of the message.
+ * 
+ * @returns {JSX.Element} The rendered component.
+ */
 
 const MessageManager = () => {
    
-    // The model for message is:
-    // types ---> success-message || error-message
-    // { type: types, content: any }
-
     const { messages } = createMessageSlice();
 
     return (
-        <div className='flex flex-col fixed top-32 w-full items-center justify-center'>
-            {messages.length > 0 ? messages.map((message, index) => 
-                (<p className={`manager-message ${message.type}`} key={index}> {message.content} </p>)
-            ) : (
-                null
-            )}
-        </div>
-  )
+        messages.length > 0 ? 
+        messages.map((message, index) => (
+            <div key={index} className='message-manager-box'>
+                {message.type === 'error' ? (
+                    <IoMdCloseCircle className='error-icon' />
+                ) : message.type === 'success' ? (
+                    <FaCheckCircle className='success-icon' />
+                ) : 
+                    null
+                }
+                <p className={`manager-message ${message.type}`}>{message.content}</p>
+            </div>
+        )) : (
+            null
+        )
+    )
 }
 
 export default MessageManager;

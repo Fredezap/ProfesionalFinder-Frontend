@@ -6,21 +6,29 @@ import useRegisterFormData from './useRegisterFormData';
 import postService from '../../../services/post_services/postService';
 import { RegisterFormMap } from './RegisterFormMap';
 import { useState } from 'react';
+import { backendErrorMessageProcessor } from '../../molecules/messageManager/backendErrorMessageProcessor';
 
 const RegisterForm = () => {
     const { addMessage } = createMessageSlice();
     const { initialValues, registerSchema, formFields } = useRegisterFormData();
-    const [sendingEmail, setSendingEmail] = useState(false);
+    const [submitingForm, setSubmitingForm] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmitForm = async (values) => {
-        setSendingEmail(true)
+        setSubmitingForm(true)
+        console.log(values)
         const response = await postService('/auth/register', values);
         console.log(response);
-        addMessage(response.message);
-        if (response.message.type === "success-message")
-            navigate(routes.login);
-    };
+        if (!response.success) {
+            const errors = backendErrorMessageProcessor(response.errors);
+            addMessage({ type: "error", content: errors });
+            setSubmitingForm(false)
+            return;
+        }
+        console.log(response);
+        addMessage({ type: "success", content: "Te has registrado exitosamente" });
+        navigate(routes.login);
+        };
 
     return (
         <div className='template'>
@@ -29,7 +37,7 @@ const RegisterForm = () => {
                 <Form className='form'>
                     <RegisterFormMap formFields={formFields} errors={errors} touched={touched} />
                     <div className='form-button'>
-                        <button type="submit" disabled={sendingEmail}>
+                        <button type="submit" disabled={submitingForm}>
                             Registrarme
                         </button>
                     </div>

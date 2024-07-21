@@ -9,7 +9,7 @@ const postService = async (url, values) => {
         'Content-Type': 'application/json'
       }
     });
- 
+    console.log("RESPONSE: ", response)
     if (response.status >= 200 && response.status < 300) {
       const data = response.data ? response.data : null
       return ({ success: true, data: data });
@@ -18,6 +18,7 @@ const postService = async (url, values) => {
       return ({ success: false, errors: errors });
     }
   } catch (error) {
+    console.log("ERROR CATCH: ", error)
     const errors = error?.response?.data?.errors ? error.response.data.errors : []
     return ({ success: false, errors: errors });
   }
