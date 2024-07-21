@@ -1,0 +1,68 @@
+.button {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    padding: 9px 20px;
+    margin: 5px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.button-red {
+    background-color: rgba(231, 13, 13, 0.8);
+}
+
+.button-red:hover {
+    background-color: rgb(212, 22, 22);
+}
+
+.button-light-blue {
+    background-color: rgba(35, 206, 235);
+}
+
+.button-light-blue:hover {
+    background-color: rgba(35, 206, 235, 0.8);
+}
+
+.button-white {
+    background-color: rgb(255, 255, 255);
+}
+
+.button-white:hover {
+    background-color: rgb(216, 216, 216);
+}
+
+.button-black {
+    background-color: rgb(15, 1, 1);
+    color: white;
+}
+
+.button-black:hover {
+    background-color: rgb(42, 39, 39);
+}
+
+.large-primary-button {
+    background-color: rgb(25, 118, 210);
+    color: white;
+}
+
+.large-primary-button:hover {
+    background-color: rgb(21, 99, 177);
+
+}
+
+.mini-button-cyan {
+    background-color: #0f86b6;
+    color: rgb(0, 0, 0);
+
+    padding: 3px 30px;
+    font-size: medium;
+}
+
+.mini-button-cyan:hover {
+    color: beige;
+}

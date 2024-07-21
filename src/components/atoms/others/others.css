@@ -1,0 +1,13 @@
+.logo-box {
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.logo-box:hover {
+    transform: scale(1.10);
+}
+
+.logo-box svg {
+    font-size: 50px;
+    color: yellow;
+}
